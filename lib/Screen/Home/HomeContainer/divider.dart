@@ -48,7 +48,7 @@ class BottomSheetImage extends StatelessWidget {
               padding: EdgeInsets.all(10),
               width: 300,
               child: Text(
-                'dhcehcbhefcb',
+                title,
                 style: GoogleFonts.lato(color: Colors.white, fontSize: 18),
               )),
         )

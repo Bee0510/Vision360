@@ -5,9 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vision_360/api/service.dart';
 
 class Searchbar extends StatefulWidget {
-  const Searchbar({Key? key}) : super(key: key);
+  const Searchbar({
+    Key? key,
+  }) : super(
+          key: key,
+        );
   static TextEditingController searchcontroller =
-      TextEditingController(text: '');
+      TextEditingController(text: 'bitcoin');
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -50,7 +54,7 @@ class _SearchBarState extends State<Searchbar> {
         InkWell(
           onTap: () {
             FocusScope.of(context).unfocus();
-            fetchNews('in');
+            fetchNews();
           },
           child: Container(
             width: 45,

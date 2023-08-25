@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unused_local_variable, unused_import, non_constant_identifier_names, prefer_if_null_operators
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unused_local_variable, unused_import, non_constant_identifier_names, prefer_if_null_operators, unnecessary_brace_in_string_interps
 
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vision_360/Components/modelSheet.dart';
 import 'package:vision_360/Components/searchBar.dart';
 import 'package:vision_360/Screen/Home/HomeContainer/newsContainer.dart';
 import 'package:vision_360/api/service.dart';
@@ -21,7 +22,9 @@ class home_screen extends StatefulWidget {
 class _home_screenState extends State<home_screen>
     with TickerProviderStateMixin {
   late Future<List> news;
+  late Future<List> newsCatagory;
   final PageController _pageController = PageController();
+  int currentindex = 0;
   List<String> genres_item = [
     'Trending',
     'Health',
@@ -31,11 +34,29 @@ class _home_screenState extends State<home_screen>
     'Cars',
     'Government'
   ];
+  void autoScroll() {
+    Timer.periodic(Duration(seconds: 3), (timer) {
+      if (currentindex < 100) {
+        currentindex++;
+      } else {
+        currentindex = 0;
+      }
+      _pageController.animateToPage(currentindex,
+          duration: Duration(seconds: 1), curve: Curves.easeInOut);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
-    news = fetchNews('in');
-    Timer.periodic(Duration(microseconds: 50), (timer) => news);
-
+    news = fetchNews();
+    autoScroll();
+    newsCatagory = fetchCatagoryNews('in');
     super.initState();
   }
 
@@ -52,7 +73,7 @@ class _home_screenState extends State<home_screen>
     return Scaffold(
       backgroundColor: Color.fromRGBO(17, 17, 17, 100),
       body: FutureBuilder<List>(
-        future: news,
+        future: fetchNews(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
             final newsList = snapshot.data;
@@ -62,8 +83,43 @@ class _home_screenState extends State<home_screen>
                 child: Column(
                   children: [
                     Searchbar(),
-                    tabBar,
-                    upper_Scrool_list(),
+                    // tabBar,
+                    FutureBuilder<List>(
+                      future: fetchCatagoryNews('in'),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasData) {
+                          final newsCatList = snapshot.data;
+                          // print('newsCatList: ${newsCatList}');
+                          return AspectRatio(
+                            aspectRatio: 1.6,
+                            child: PageView.builder(
+                                onPageChanged: (value) {
+                                  currentindex = value;
+                                },
+                                dragStartBehavior: DragStartBehavior.down,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: newsCatList!.length,
+                                controller: _pageController,
+                                itemBuilder: (context, index) {
+                                  final list = newsCatList[index];
+                                  return carouselView(
+                                      index,
+                                      _pageController,
+                                      list['title'],
+                                      list['author'].toString(),
+                                      list['publishedAt'],
+                                      list['urlToImage'] == null
+                                          ? 'https://tse4.mm.bing.net/th?id=OIP.Gf-MiDHTv_xkelVbwA3F2wHaKl&pid=Api&P=0&h=180'
+                                          : list['urlToImage']);
+                                }),
+                          );
+                          ;
+                        } else if (snapshot.hasError) {
+                          return Text('result: ${snapshot.error.toString()}');
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      },
+                    ),
                     ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -92,16 +148,20 @@ class _home_screenState extends State<home_screen>
     );
   }
 
-  AspectRatio upper_Scrool_list() {
+  AspectRatio upper_Scrool_list(
+      String author, String des, String date, String img) {
     return AspectRatio(
       aspectRatio: 1.6,
       child: PageView.builder(
+          onPageChanged: (value) {
+            currentindex = value;
+          },
           dragStartBehavior: DragStartBehavior.down,
           physics: ClampingScrollPhysics(),
           itemCount: 10,
           controller: _pageController,
           itemBuilder: (context, index) {
-            return carouselView(index, _pageController);
+            return carouselView(index, _pageController, author, des, date, img);
           }),
     );
   }

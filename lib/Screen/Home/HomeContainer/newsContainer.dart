@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vision_360/Components/modelSheet.dart';
 
 class NewsBox extends StatelessWidget {
   final String imageurl, title, time, description, url;
@@ -22,7 +23,9 @@ class NewsBox extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            showMyBottomSheet(context, title, description, imageurl, url);
+          },
           child: Container(
             padding: EdgeInsets.all(20),
             margin: EdgeInsets.only(left: 5, right: 5, top: 5),
@@ -41,7 +44,10 @@ class NewsBox extends StatelessWidget {
                     child: Image(image: imageProvider, fit: BoxFit.cover),
                   ),
                   placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.error,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(width: 8),
                 Expanded(
@@ -53,6 +59,8 @@ class NewsBox extends StatelessWidget {
                         title,
                         style:
                             GoogleFonts.lato(color: Colors.white, fontSize: 16),
+                        maxLines: 3,
+                        overflow: TextOverflow.clip,
                       ),
                       SizedBox(height: 5),
                       Text(
