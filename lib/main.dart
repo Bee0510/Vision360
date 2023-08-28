@@ -1,23 +1,32 @@
-import 'package:flutter/material.dart';
-import 'package:vision_360/Screen/Home/homeScreen.dart';
+// ignore_for_file: prefer_const_constructors
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vision_360/Auth/Athentication%20Pages/wrapper.dart';
+import 'package:vision_360/Auth/Auth/Auth.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return StreamProvider.value(
+      initialData: null,
+      value: Authentication().UserDetails,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Wrapper(),
       ),
-      home: home_screen(),
     );
   }
 }

@@ -75,7 +75,7 @@ class NewsBox extends StatelessWidget {
             ),
           ),
         ),
-        Divider(),
+        // Divider(),
       ],
     );
   }

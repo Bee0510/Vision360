@@ -15,8 +15,9 @@ Future<List> fetchNews() async {
     //           Searchbar.searchcontroller.text),
     // );
     Uri.parse(
-        'https://newsapi.org/v2/everything?q=${Searchbar.searchcontroller.text}&apiKey=75e5ec47602d4731b4160980e9b2408e'),
+        'https://newsapi.org/v2/everything?q=${Searchbar.searchcontroller.text}&apiKey=4d3725a5b52e477d9b69d7607c62276d'),
   );
+
   Map result = jsonDecode(response.body);
   return (result['articles']);
 }
@@ -24,7 +25,7 @@ Future<List> fetchNews() async {
 Future<List> fetchCatagoryNews(String coun) async {
   final response = await http.get(
     Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=75e5ec47602d4731b4160980e9b2408e'),
+        'https://newsapi.org/v2/top-headlines?q=${Searchbar.searchcontroller.text}&apiKey=4d3725a5b52e477d9b69d7607c62276d'),
   );
   if (response.statusCode == 200) {
     Map<String, dynamic> cat_result = jsonDecode(response.body);

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "688756222097",
+    "project_id": "vision360-79a0d",
+    "storage_bucket": "vision360-79a0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688756222097:android:d2e6969b64b2c1da597730",
+        "android_client_info": {
+          "package_name": "com.example.vision_360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688756222097-sktmugpih9ek9mvae600dtnac2ffjopt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vision_360",
+            "certificate_hash": "a7ec4aafd36c2b0344f857151fc0a02a0a2ac8ab"
+          }
+        },
+        {
+          "client_id": "688756222097-7b2bu5btrep3cdcleqeg3fi57dvv8c3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqTmL80NwSbb7hcYook44uZ10Q3skrnBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688756222097-7b2bu5btrep3cdcleqeg3fi57dvv8c3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

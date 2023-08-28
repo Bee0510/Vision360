@@ -1,15 +1,18 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unused_local_variable, unused_import, non_constant_identifier_names, prefer_if_null_operators, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, unused_local_variable, unused_import, non_constant_identifier_names, prefer_if_null_operators, unnecessary_brace_in_string_interps, unused_element, camel_case_types
 
 import 'dart:async';
 import 'dart:math';
+import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vision_360/Components/modelSheet.dart';
 import 'package:vision_360/Components/searchBar.dart';
+import 'package:vision_360/Screen/Home/HomeContainer/appBar.dart';
 import 'package:vision_360/Screen/Home/HomeContainer/newsContainer.dart';
 import 'package:vision_360/api/service.dart';
 
+import 'HomeContainer/Drawer.dart';
 import 'HomeContainer/homeComponents.dart';
 
 class home_screen extends StatefulWidget {
@@ -34,6 +37,7 @@ class _home_screenState extends State<home_screen>
     'Cars',
     'Government'
   ];
+
   void autoScroll() {
     Timer.periodic(Duration(seconds: 3), (timer) {
       if (currentindex < 100) {
@@ -71,25 +75,31 @@ class _home_screenState extends State<home_screen>
       ],
     );
     return Scaffold(
-      backgroundColor: Color.fromRGBO(17, 17, 17, 100),
+      backgroundColor: Color.fromRGBO(10, 6, 49, 0.612),
+      appBar: appBar(),
+      drawer: drawer(),
       body: FutureBuilder<List>(
         future: fetchNews(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
             final newsList = snapshot.data;
-
             return SingleChildScrollView(
               child: SafeArea(
                 child: Column(
                   children: [
-                    Searchbar(),
+                    Searchbar(
+                      onSearchPressed: () {
+                        setState(() {
+                          news = fetchNews();
+                        });
+                      },
+                    ),
                     // tabBar,
                     FutureBuilder<List>(
                       future: fetchCatagoryNews('in'),
                       builder: (BuildContext context, snapshot) {
                         if (snapshot.hasData) {
                           final newsCatList = snapshot.data;
-                          // print('newsCatList: ${newsCatList}');
                           return AspectRatio(
                             aspectRatio: 1.6,
                             child: PageView.builder(
@@ -113,7 +123,6 @@ class _home_screenState extends State<home_screen>
                                           : list['urlToImage']);
                                 }),
                           );
-                          ;
                         } else if (snapshot.hasError) {
                           return Text('result: ${snapshot.error.toString()}');
                         }
