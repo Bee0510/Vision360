@@ -21,26 +21,20 @@ Getting Started:
 To run the Vision360 News App locally, follow these steps:
 
 1.Clone the Repository:
-
 git clone https://github.com/Bee0510/Vision360.git
 
 2.Navigate to the Flutter Project Directory:
-
 cd Vision360/flutter_project
 
 3.Install Dependencies:
-
 flutter pub get
 
 4.Set Up API Key:
-
 Obtain an API key from the news API provider.
-
 Open lib/config.dart and add your API key:
 const String apiKey = 'your-api-key';
 
 5.Run the Application:
-
 flutter run
 
 This will start the development server, and you can access the app on your emulator or physical device.
