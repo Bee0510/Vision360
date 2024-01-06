@@ -3,7 +3,6 @@ Welcome to the Vision360 News App repository! This project is a sleek and intuit
 
 Features
 
-
 Live News Updates: Vision360 uses a reliable API to fetch real-time news data, guaranteeing that users receive the freshest and most pertinent information.
 
 Responsive Design: Our app is meticulously crafted to be responsive and user-friendly, providing a seamless experience across various devices and screen sizes.
