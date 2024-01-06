@@ -13,7 +13,8 @@ Demo Video Link: https://github.com/Bee0510/Vision360/assets/111389771/9d979c5a-
 
 Screenshots:
 
-![WhatsApp Image 2024-01-06 at 15 30 15_4aede2e5](https://github.com/Bee0510/Vision360/assets/111389771/58e52e97-a04a-486e-9561-54fcef1429d1) ![WhatsApp Image 2024-01-06 at 15 30 16_b30f6b14](https://github.com/Bee0510/Vision360/assets/111389771/a24d97e3-3a6d-4524-8e52-32a594689ac3)
+![WhatsApp Image 2024-01-06 at 15 30 15_4aede2e5](https://github.com/Bee0510/Vision360/assets/111389771/58e52e97-a04a-486e-9561-54fcef1429d1) 
+![WhatsApp Image 2024-01-06 at 15 30 16_b30f6b14](https://github.com/Bee0510/Vision360/assets/111389771/a24d97e3-3a6d-4524-8e52-32a594689ac3)
 
 
 Getting Started:
