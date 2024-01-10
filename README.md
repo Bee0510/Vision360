@@ -1,4 +1,4 @@
-### Vision360
+##### Vision360
 
 Welcome to the Vision360 News App repository! This project is a sleek and intuitive news application that harnesses the power of a third-party API to deliver the latest news articles from diverse sources. Offering users an effortless and effective way to stay abreast of current events, Vision360 ensures a seamless experience with its user-friendly design and real-time updates.
 
