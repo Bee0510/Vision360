@@ -1,4 +1,4 @@
-#### Vision360
+### Vision360
 
 Welcome to the Vision360 News App repository! This project is a sleek and intuitive news application that harnesses the power of a third-party API to deliver the latest news articles from diverse sources. Offering users an effortless and effective way to stay abreast of current events, Vision360 ensures a seamless experience with its user-friendly design and real-time updates.
 
@@ -18,7 +18,7 @@ Demo Video Link: https://youtu.be/uCJz0eq_7HE
 ![WhatsApp Image 2024-01-06 at 15 30 16_b30f6b14](https://github.com/Bee0510/Vision360/assets/111389771/a24d97e3-3a6d-4524-8e52-32a594689ac3)
 
 
-Getting Started:
+## Getting Started:
 
 To run the Vision360 News App locally, follow these steps:
 
