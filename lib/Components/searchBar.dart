@@ -1,24 +1,23 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_local_variable
-
-import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vision_360/api/service.dart';
 
 class Searchbar extends StatefulWidget {
-  Searchbar({Key? key, required this.onSearchPressed})
+  const Searchbar({Key? key, required this.onSearchPressed})
       : super(
           key: key,
         );
   static TextEditingController searchcontroller =
-      TextEditingController(text: 'bitcoin');
-  final VoidCallback onSearchPressed;
+      TextEditingController(text: 'India');
+  final Function onSearchPressed;
 
   @override
   _SearchBarState createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<Searchbar> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     var AppColors = Colors.deepPurple;
@@ -55,10 +54,16 @@ class _SearchBarState extends State<Searchbar> {
             ),
           ),
           InkWell(
-            onTap: () {
+            onTap: () async {
               FocusScope.of(context).unfocus();
               // fetchNews();
-              widget.onSearchPressed();
+              setState(() {
+                isLoading = true;
+              });
+              await widget.onSearchPressed();
+              setState(() {
+                isLoading = false;
+              });
             },
             child: Container(
               width: 45,
@@ -66,10 +71,14 @@ class _SearchBarState extends State<Searchbar> {
               decoration: BoxDecoration(
                   color: Color.fromRGBO(35, 35, 35, 100),
                   shape: BoxShape.circle),
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
+              child: isLoading
+                  ? CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
             ),
           ),
           SizedBox(width: 7),

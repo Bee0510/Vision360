@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:math';
-import 'package:alan_voice/alan_voice.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,8 +9,9 @@ import 'package:vision_360/Components/modelSheet.dart';
 import 'package:vision_360/Components/searchBar.dart';
 import 'package:vision_360/Screen/Home/HomeContainer/appBar.dart';
 import 'package:vision_360/Screen/Home/HomeContainer/newsContainer.dart';
-import 'package:vision_360/api/service.dart';
+import 'package:vision_360/api/fetchCatagoryNews.dart';
 
+import '../../api/fetchnews.dart';
 import 'HomeContainer/Drawer.dart';
 import 'HomeContainer/homeComponents.dart';
 
@@ -39,7 +39,7 @@ class _home_screenState extends State<home_screen>
   ];
 
   void autoScroll() {
-    Timer.periodic(Duration(seconds: 3), (timer) {
+    Timer.periodic(Duration(seconds: 1), (timer) {
       if (currentindex < 100) {
         currentindex++;
       } else {
@@ -88,7 +88,7 @@ class _home_screenState extends State<home_screen>
                 child: Column(
                   children: [
                     Searchbar(
-                      onSearchPressed: () {
+                      onSearchPressed: () async {
                         setState(() {
                           news = fetchNews();
                         });
@@ -113,14 +113,15 @@ class _home_screenState extends State<home_screen>
                                 itemBuilder: (context, index) {
                                   final list = newsCatList[index];
                                   return carouselView(
-                                      index,
-                                      _pageController,
-                                      list['title'],
-                                      list['author'].toString(),
-                                      list['publishedAt'],
-                                      list['urlToImage'] == null
-                                          ? 'https://tse4.mm.bing.net/th?id=OIP.Gf-MiDHTv_xkelVbwA3F2wHaKl&pid=Api&P=0&h=180'
-                                          : list['urlToImage']);
+                                    index,
+                                    _pageController,
+                                    list['title'],
+                                    list['author'].toString(),
+                                    list['publishedAt'],
+                                    list['urlToImage'] == null
+                                        ? 'https://images.wallpapersden.com/image/download/one-piece-hd-luffy-cool-art_bWhmZWWUmZqaraWkpJRmbmdlrWZlbWU.jpg'
+                                        : list['urlToImage'],
+                                  );
                                 }),
                           );
                         } else if (snapshot.hasError) {
@@ -129,6 +130,42 @@ class _home_screenState extends State<home_screen>
                         return Center(child: CircularProgressIndicator());
                       },
                     ),
+                    // Container(
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       IconButton(
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               currentindex--;
+                    //             });
+                    //             _pageController.animateToPage(currentindex,
+                    //                 duration: Duration(seconds: 1),
+                    //                 curve: Curves.easeInOut);
+                    //           },
+                    //           icon: Icon(
+                    //             Icons.arrow_circle_left_outlined,
+                    //             color: Colors.red,
+                    //             size: 40,
+                    //           )),
+                    //       IconButton(
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               currentindex++;
+                    //             });
+                    //             _pageController.animateToPage(currentindex,
+                    //                 duration: Duration(seconds: 1),
+                    //                 curve: Curves.easeInOut);
+                    //           },
+                    //           icon: Icon(
+                    //             Icons.arrow_circle_right_outlined,
+                    //             color: Colors.green,
+                    //             size: 40,
+                    //           ))
+                    //     ],
+                    //   ),
+                    // ),
+
                     ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -140,7 +177,7 @@ class _home_screenState extends State<home_screen>
                             description: newsList[index]['content'].toString(),
                             url: newsList[index]['url'],
                             imageurl: newsList[index]['urlToImage'] == null
-                                ? 'https://tse4.mm.bing.net/th?id=OIP.Gf-MiDHTv_xkelVbwA3F2wHaKl&pid=Api&P=0&h=180'
+                                ? 'https://images.wallpapersden.com/image/download/one-piece-hd-luffy-cool-art_bWhmZWWUmZqaraWkpJRmbmdlrWZlbWU.jpg'
                                 : newsList[index]['urlToImage'],
                           );
                         })
@@ -154,24 +191,6 @@ class _home_screenState extends State<home_screen>
           return Center(child: CircularProgressIndicator());
         },
       ),
-    );
-  }
-
-  AspectRatio upper_Scrool_list(
-      String author, String des, String date, String img) {
-    return AspectRatio(
-      aspectRatio: 1.6,
-      child: PageView.builder(
-          onPageChanged: (value) {
-            currentindex = value;
-          },
-          dragStartBehavior: DragStartBehavior.down,
-          physics: ClampingScrollPhysics(),
-          itemCount: 10,
-          controller: _pageController,
-          itemBuilder: (context, index) {
-            return carouselView(index, _pageController, author, des, date, img);
-          }),
     );
   }
 }

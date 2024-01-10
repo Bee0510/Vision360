@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:vision_360/Auth/Auth/Auth.dart';
 
 AppBar appBar() {
+  final Authentication auth = Authentication();
   return AppBar(
     backgroundColor: Color.fromRGBO(17, 17, 17, 100),
     title: Text(
@@ -27,10 +29,14 @@ AppBar appBar() {
     actions: [
       Padding(
         padding: EdgeInsets.only(right: 16.0),
-        child: Icon(
-          Icons.abc,
-          color: Colors.white,
-        ),
+        child: IconButton(
+            onPressed: () async {
+              auth.signOutFromGoogle();
+            },
+            icon: Icon(
+              Icons.power_settings_new,
+              color: Colors.white,
+            )),
       ),
     ],
   );

@@ -64,7 +64,7 @@ class NewsBox extends StatelessWidget {
                       ),
                       SizedBox(height: 5),
                       Text(
-                        time,
+                        time.substring(0, 10),
                         style:
                             GoogleFonts.lato(color: Colors.white, fontSize: 16),
                       ),

@@ -6,15 +6,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget carouselView(int index, PageController _pageController, String author,
+Widget carouselView(int index, PageController pageController, String author,
     String description, String date, String img) {
   final randomColor = Color(Random().nextInt(0xFFFFFFFF));
   return AnimatedBuilder(
-      animation: _pageController,
+      animation: pageController,
       builder: (context, child) {
         double value = 0.0;
-        if (_pageController.position.haveDimensions) {
-          value = index.toDouble() - (_pageController.page ?? 0);
+        if (pageController.position.haveDimensions) {
+          value = index.toDouble() - (pageController.page ?? 0);
           value = (value * 0.090).clamp(-1, 1);
         }
         return Transform.rotate(
@@ -73,7 +73,7 @@ Widget carouselView(int index, PageController _pageController, String author,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          date,
+                          date.substring(0, 10),
                           style: GoogleFonts.lato(
                               color: Colors.white, fontSize: 14),
                         ),
